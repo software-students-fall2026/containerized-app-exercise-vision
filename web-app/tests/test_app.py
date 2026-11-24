@@ -1,6 +1,6 @@
-
 """Tests for the Flask starter application."""
 from app import app
+
 
 def test_homepage():
     """Check that the homepage loads successfully."""
