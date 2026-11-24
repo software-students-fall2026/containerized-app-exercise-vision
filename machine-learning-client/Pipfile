@@ -8,6 +8,7 @@ pylint = "*"
 black = "*"
 mediapipe = "==0.10.21"
 opencv-python = "*"
+flask = "*"
 
 [dev-packages]
 pytest = "*"
