@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 from client import app
 
+
 def test_missing_image():
     """Check requests without an image."""
     with app.test_client() as client:
@@ -12,6 +13,7 @@ def test_missing_image():
 
     assert response.status_code == 400
     assert response.get_json() == {"error": "No image provided"}
+
 
 def test_invalid_image():
     """Check requests containing invalid image data."""
@@ -23,6 +25,7 @@ def test_invalid_image():
     assert response.status_code == 400
     assert response.get_json() == {"error": "Invalid image"}
 
+
 def test_empty_image():
     """Check requests containing an empty image file."""
     data = {"image": (BytesIO(b""), "test.jpg")}
@@ -32,6 +35,7 @@ def test_empty_image():
 
     assert response.status_code == 400
     assert response.get_json() == {"error": "Invalid image"}
+
 
 def test_valid_image():
     """Check recognition of a valid image without a hand."""
