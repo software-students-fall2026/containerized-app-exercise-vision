@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 pylint = "*"
 black = "*"
+mediapipe = "==0.10.21"
+opencv-python = "*"
 
 [dev-packages]
 pytest = "*"

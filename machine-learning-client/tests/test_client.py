@@ -2,6 +2,7 @@
 
 from client import main
 
+
 def test_client_starts(capsys):
     """Check that the client starts successfully."""
     main()
