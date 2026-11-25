@@ -4,9 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simon Says Camera Challenge</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Simon Says Camera Challenge</h1>
-    <p>Welcome! The game is currently under development.</p>
+
+    <!-- Welcome Screen -->
+    <section id="welcome-screen" class="screen">
+        <h1>LET'S PLAY<br><span>SIMON SAYS!</span></h1>
+
+        <p>Follow the commands. Strike a pose.</p>
+
+        <button id="play-button">PLAY</button>
+
+        <p class="game-info">5 Rounds • Camera Required</p>
+
+        <p id="camera-error" role="alert"></p>
+    </section>
+
+    <!-- Camera Screen -->
+    <section id="camera-screen" class="screen hidden">
+        <h2>Get Ready!</h2>
+
+        <video id="webcam" autoplay playsinline muted></video>
+
+        <p>Make sure your upper body is visible.</p>
+    </section>
+
+    <script src="{{ url_for('static', filename='game.js') }}"></script>
+
 </body>
 </html>

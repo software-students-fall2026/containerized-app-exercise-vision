@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #7028d9;
+    color: white;
+}
+
+.screen {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+}
+
+.hidden {
+    display: none;
+}
+
+h1 {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0;
+}
+
+h1 span {
+    color: #fde047;
+}
+
+h2 {
+    font-size: 3rem;
+}
+
+p {
+    font-size: 1.2rem;
+}
+
+#play-button {
+    background-color: white;
+    color: #7028d9;
+    border: none;
+    border-radius: 50px;
+    padding: 18px 80px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: transform 0.2s;
+}
+
+#play-button:hover {
+    transform: scale(1.05);
+}
+
+#play-button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.game-info {
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+#webcam {
+    width: 640px;
+    max-width: 90vw;
+    border: 5px solid white;
+    border-radius: 20px;
+    background-color: #21152f;
+    transform: scaleX(-1);
+}
+
+#camera-error {
+    color: #fde047;
+    font-size: 1rem;
+}
