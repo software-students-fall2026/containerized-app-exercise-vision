@@ -1,5 +1,7 @@
 """Hand gesture recognition for the Simon Says game."""
 
+import math
+
 import cv2
 import mediapipe as mp
 
@@ -31,26 +33,57 @@ def detect_hand(image):
     return get_landmarks(image) is not None
 
 
+def landmark_distance(first, second):
+    """Calculate the distance between two hand landmarks."""
+    return math.sqrt(
+        (first.x - second.x) ** 2
+        + (first.y - second.y) ** 2
+        + (first.z - second.z) ** 2
+    )
+
+
+def is_finger_extended(landmarks, tip, joint):
+    """Determine whether a finger is extended."""
+    wrist = landmarks[0]
+
+    tip_distance = landmark_distance(landmarks[tip], wrist)
+    joint_distance = landmark_distance(landmarks[joint], wrist)
+
+    return tip_distance > joint_distance * 1.2
+
+
+def is_thumb_extended(landmarks):
+    """Determine whether the thumb is extended."""
+    thumb_distance = landmark_distance(landmarks[4], landmarks[17])
+    palm_width = landmark_distance(landmarks[5], landmarks[17])
+
+    return thumb_distance > palm_width * 1.5
+
+
 def classify_gesture(landmarks):
-    """Classify a gesture using finger landmark positions."""
+    """Classify a gesture using hand landmark positions."""
     fingertips = [8, 12, 16, 20]
     finger_joints = [6, 10, 14, 18]
 
     fingers = []
 
     for tip, joint in zip(fingertips, finger_joints):
-        fingers.append(landmarks[tip].y < landmarks[joint].y)
+        fingers.append(is_finger_extended(landmarks, tip, joint))
 
-    if fingers == [True, True, True, True]:
-        return "open_palm"
+    thumb = is_thumb_extended(landmarks)
 
-    if fingers == [False, False, False, False]:
-        return "fist"
+    gestures = {
+        (True, True, True, True): "open_palm",
+        (False, False, False, False): "thumbs_up" if thumb else "fist",
+        (True, True, False, False): "peace_sign",
+        (True, False, False, False): "finger_gun" if thumb else "pointing",
+        (True, False, False, True): "rock_horns",
+        (True, True, True, False): "three_fingers",
+        (False, True, True, True): "three_fingers",
+        (False, False, False, True): "shaka" if thumb else "pinky_up",
+    }
 
-    if fingers == [True, True, False, False]:
-        return "peace_sign"
-
-    return "unknown"
+    return gestures.get(tuple(fingers), "unknown")
 
 
 def recognize_gesture(image):
