@@ -22,13 +22,25 @@
         <p id="camera-error" role="alert"></p>
     </section>
 
-    <!-- Camera Screen -->
     <section id="camera-screen" class="screen hidden">
-        <h2>Get Ready!</h2>
 
-        <video id="webcam" autoplay playsinline muted></video>
+        <h2 id="game-heading">Get Ready!</h2>
 
-        <p>Make sure your upper body is visible.</p>
+        <div class="camera-container">
+
+            <video id="webcam" autoplay playsinline muted></video>
+
+            <!-- Countdown Overlay -->
+            <div id="countdown-overlay">
+                <span id="countdown-number">3</span>
+            </div>
+
+        </div>
+
+        <p id="game-instruction">
+            Make sure your upper body is visible.
+        </p>
+
     </section>
 
     <script src="{{ url_for('static', filename='game.js') }}"></script>
