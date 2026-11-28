@@ -1,4 +1,5 @@
 """Tests for the Flask starter application."""
+
 from app import app
 
 
