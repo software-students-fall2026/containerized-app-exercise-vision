@@ -1,4 +1,5 @@
-import random 
+import random
+
 GESTURES = [
     "open_palm",
     "fist",
@@ -12,23 +13,26 @@ GESTURES = [
     "pinky_up",
 ]
 
-class Game():
+
+class Game:
     def __init__(self):
         self.score = 0
         self.streak = 0
+        self.alive = True
+
     def instruction():
-        prefix = "Simon says: " if random.randint(1,2) == 1 else ""
-        gesture = GESTURES[random.randint([range(len(GESTURES))])]
-        return prefix + gesture
+        if self.alive:
+            prefix = "Simon says: " if random.randint(1, 2) == 1 else ""
+            gesture = random.choice(GESTURES)
+            return prefix + gesture
 
-    def score_gesture(instruction: str, detected_gesture: str):
-        gesture = [g for g in GESTURES if g in instruction][0]
-        gesture_valid = gesture == detected_gesture or "Simon says" in instruction
-        if gesture_valid: 
-            self.score += 1
-            self.streak += 1
-        else: 
-            self.streak = 0
-            return "Game over"
-
-            
+    def score_gesture(self, instruction: str, detected_gesture: str):
+        if self.alive:
+            gesture = [g for g in GESTURES if g in instruction][0]
+            gesture_valid = gesture == detected_gesture or "Simon says" in instruction
+            if gesture_valid:
+                self.score += 1
+                self.streak += 1
+            else:
+                self.streak = 0
+                self.alive = False
